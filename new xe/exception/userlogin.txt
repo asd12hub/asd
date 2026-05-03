@@ -1,0 +1,91 @@
+package Exception;
+
+import java.util.Scanner;
+
+//Custom Exception
+class InvalidCredentialsException extends Exception {
+ InvalidCredentialsException(String msg) {
+     super(msg);
+ }
+}
+
+class UserSystem {
+
+ private String correctUser = "admin";
+ private String correctPass = "1234";
+
+ private int correctPIN = 1111;
+ private double balance = 5000;
+
+ // ---- LOGIN ----
+ void login(String username, String password) throws InvalidCredentialsException {
+
+     if(username == null || password == null) {
+         throw new NullPointerException("Username or Password is null");
+     }
+
+     if(!username.equals(correctUser) || !password.equals(correctPass)) {
+         throw new InvalidCredentialsException("Invalid Username or Password");
+     }
+
+     System.out.println("Login successful");
+ }
+
+ // ---- TRANSACTION ----
+ void transaction(double amount, int pin) throws Exception {
+
+     if(pin != correctPIN) {
+         throw new Exception("Invalid PIN");
+     }
+
+     if(amount <= 0) {
+         throw new Exception("Amount must be positive");
+     }
+
+     if(amount > balance) {
+         throw new Exception("Insufficient balance");
+     }
+
+     balance -= amount;
+     System.out.println("Transaction successful: " + amount);
+     System.out.println("Remaining Balance: " + balance);
+ }
+
+
+//Main class
+
+ public static void main(String[] args) {
+
+     Scanner sc = new Scanner(System.in);
+     UserSystem obj = new UserSystem();
+
+     try {
+         // ---- LOGIN INPUT ----
+         System.out.print("Enter username: ");
+         String user = sc.nextLine();
+
+         System.out.print("Enter password: ");
+         String pass = sc.nextLine();
+
+         obj.login(user, pass);
+
+         // ---- TRANSACTION INPUT ----
+         System.out.print("Enter amount: ");
+         double amt = sc.nextDouble();
+
+         System.out.print("Enter PIN: ");
+         int pin = sc.nextInt();
+
+         obj.transaction(amt, pin);
+
+     } catch(InvalidCredentialsException e) {
+         System.out.println("Login Error: " + e.getMessage());
+
+     } catch(NullPointerException e) {
+         System.out.println("Null Error: " + e.getMessage());
+
+     } catch(Exception e) {
+         System.out.println("Error: " + e.getMessage());
+     }
+ }
+}

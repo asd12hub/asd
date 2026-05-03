@@ -1,0 +1,128 @@
+package Calculator;
+
+import java.util.Scanner;
+
+class Calculator {
+
+    double a, b;
+
+    // Default constructor
+    Calculator() {
+        a = 0;
+        b = 0;
+    }
+
+    // Parameterized constructor (2 values)
+    Calculator(double x, double y) {
+        a = x;
+        b = y;
+    }
+
+    // Copy constructor
+    Calculator(Calculator c) {
+        this.a = c.a;
+        this.b = c.b;
+    }
+
+    // ---- Method Overloading ----
+
+    int add(int x, int y) {
+        return x + y;
+    }
+
+    double add(double x, double y) {
+        return x + y;
+    }
+
+    double subtract(double x, double y) {
+        return x - y;
+    }
+
+    double multiply(double x, double y) {
+        return x * y;
+    }
+
+    double divide(double x, double y) {
+        if(y == 0) {
+            System.out.println("Division by zero not allowed");
+            return 0;
+        }
+        return x / y;
+    }
+
+    // factorial
+    long factorial(int n) {
+        if(n < 0) return -1;
+        long fact = 1;
+        for(int i = 1; i <= n; i++) {
+            fact *= i;
+        }
+        return fact;
+    }
+    
+    
+    
+    
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        Calculator calc = new Calculator();
+
+        System.out.println("1.Add  2.Subtract  3.Multiply  4.Divide  5.Factorial");
+        System.out.print("Enter choice: ");
+        int ch = sc.nextInt();
+
+        switch(ch) {
+
+            case 1:
+                System.out.print("Enter two numbers: ");
+                double a = sc.nextDouble();
+                double b = sc.nextDouble();
+                System.out.println("Result = " + calc.add(a,b));
+                break;
+
+            case 2:
+                System.out.print("Enter two numbers: ");
+                a = sc.nextDouble();
+                b = sc.nextDouble();
+                System.out.println("Result = " + calc.subtract(a,b));
+                break;
+
+            case 3:
+                System.out.print("Enter two numbers: ");
+                a = sc.nextDouble();
+                b = sc.nextDouble();
+                System.out.println("Result = " + calc.multiply(a,b));
+                break;
+
+            case 4:
+                System.out.print("Enter two numbers: ");
+                a = sc.nextDouble();
+                b = sc.nextDouble();
+                System.out.println("Result = " + calc.divide(a,b));
+                break;
+
+            case 5:
+                System.out.print("Enter number: ");
+                int n = sc.nextInt();
+                long f = calc.factorial(n);
+                if(f == -1)
+                    System.out.println("Invalid input");
+                else
+                    System.out.println("Factorial = " + f);
+                break;
+
+            default:
+                System.out.println("Invalid choice");
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+}
+

@@ -1,0 +1,127 @@
+
+/*
+23	Build a Java program for Course Management System using an ArrayList to store course objects with attributes: courseID, courseName, and fees (accept user input)
+•	Implement features: 
+o	Add courses 
+o	Update fees 
+o	Remove courses 
+•	Sort courses by fees or course name.
+
+
+*/
+
+package arraylist;
+
+import java.util.*;
+
+//Course class
+class Course {
+ int courseID;
+ String courseName;
+ double fees;
+
+ Course(int id, String name, double fees) {
+     this.courseID = id;
+     this.courseName = name;
+     this.fees = fees;
+ }
+
+ public String toString() {
+     return courseID + " | " + courseName + " | " + fees;
+ }
+
+
+ static ArrayList<Course> list = new ArrayList<>();
+ static Scanner sc = new Scanner(System.in);
+
+ // Add course
+ static void addCourse() {
+     System.out.print("Enter ID: ");
+     int id = sc.nextInt();
+     sc.nextLine();
+
+     System.out.print("Enter Course Name: ");
+     String name = sc.nextLine();
+
+     System.out.print("Enter Fees: ");
+     double fees = sc.nextDouble();
+
+     list.add(new Course(id, name, fees));
+     System.out.println("Course Added");
+ }
+
+ // Update fees
+ static void updateCourse() {
+     System.out.print("Enter Course ID: ");
+     int id = sc.nextInt();
+
+     for(Course c : list) {
+         if(c.courseID == id) {
+             System.out.print("Enter new fees: ");
+             c.fees = sc.nextDouble();
+             System.out.println("Updated");
+             return;
+         }
+     }
+     System.out.println("Course not found");
+ }
+
+ // Remove course
+ static void removeCourse() {
+     System.out.print("Enter Course ID: ");
+     int id = sc.nextInt();
+
+     Iterator<Course> it = list.iterator();
+     while(it.hasNext()) {
+         if(it.next().courseID == id) {
+             it.remove();
+             System.out.println("Removed");
+             return;
+         }
+     }
+     System.out.println("Course not found");
+ }
+
+ // Display
+ static void display() {
+     if(list.isEmpty()) {
+         System.out.println("No courses available");
+         return;
+     }
+     for(Course c : list) {
+         System.out.println(c);
+     }
+ }
+
+ // Sort by fees
+ static void sortByFees() {
+     Collections.sort(list, (a, b) -> Double.compare(a.fees, b.fees));
+     System.out.println("Sorted by Fees");
+ }
+
+ // Sort by name
+ static void sortByName() {
+     Collections.sort(list, (a, b) -> a.courseName.compareToIgnoreCase(b.courseName));
+     System.out.println("Sorted by Course Name");
+ }
+
+ public static void main(String[] args) {
+
+     while(true) {
+         System.out.println("\n1.Add 2.Update 3.Remove 4.Display 5.SortFees 6.SortName 7.Exit");
+         System.out.print("Enter choice: ");
+         int ch = sc.nextInt();
+
+         switch(ch) {
+             case 1: addCourse(); break;
+             case 2: updateCourse(); break;
+             case 3: removeCourse(); break;
+             case 4: display(); break;
+             case 5: sortByFees(); break;
+             case 6: sortByName(); break;
+             case 7: System.exit(0);
+             default: System.out.println("Invalid choice");
+         }
+     }
+ }
+}

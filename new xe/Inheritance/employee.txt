@@ -1,0 +1,104 @@
+package xenew.Inheritance;
+
+//Base class
+class Employee {
+ int employeeID;
+ String name;
+ double baseSalary;
+
+ Employee(int employeeID, String name, double baseSalary) {
+     this.employeeID = employeeID;
+     this.name = name;
+     this.baseSalary = baseSalary;
+ }
+
+ void calculateSalary() {
+     // default salary
+     System.out.println("Salary: " + baseSalary);
+ }
+
+ void display() {
+     System.out.println("ID: " + employeeID + ", Name: " + name);
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ public static void main(String[] args) {
+
+     Manager m = new Manager(1, "Rahul", 50000, 10000);
+     Developer d = new Developer(2, "Amit", 40000, 10);
+     Intern i = new Intern(3, "Riya", 10000, 3000);
+
+     m.display();
+     m.calculateSalary();
+     System.out.println();
+
+     d.display();
+     d.calculateSalary();
+     System.out.println();
+
+     i.display();
+     i.calculateSalary();
+ }
+ 
+ 
+ 
+
+ 
+ 
+ 
+}
+
+//Manager subclass
+class Manager extends Employee {
+ double bonus;
+
+ Manager(int id, String name, double baseSalary, double bonus) {
+     super(id, name, baseSalary);
+     this.bonus = bonus;
+ }
+
+ @Override
+ void calculateSalary() {
+     double total = baseSalary + bonus;
+     System.out.println("Manager Salary: " + total);
+ }
+}
+
+//Developer subclass
+class Developer extends Employee {
+ int overtimeHours;
+ double ratePerHour = 200; // fixed rate
+
+ Developer(int id, String name, double baseSalary, int overtimeHours) {
+     super(id, name, baseSalary);
+     this.overtimeHours = overtimeHours;
+ }
+
+ @Override
+ void calculateSalary() {
+     double total = baseSalary + (overtimeHours * ratePerHour);
+     System.out.println("Developer Salary: " + total);
+ }
+}
+
+//Intern subclass
+class Intern extends Employee {
+ double stipend;
+
+ Intern(int id, String name, double baseSalary, double stipend) {
+     super(id, name, baseSalary);
+     this.stipend = stipend;
+ }
+
+ @Override
+ void calculateSalary() {
+     double total = baseSalary + stipend;
+     System.out.println("Intern Salary: " + total);
+ }
+}
+
+//Main class

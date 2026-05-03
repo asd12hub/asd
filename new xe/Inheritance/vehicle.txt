@@ -1,0 +1,138 @@
+package xenew.Inheritance;
+
+//Base class
+class Vehicle {
+ int vehicleID;
+ String brand;
+ double price;
+
+ Vehicle(int vehicleID, String brand, double price) {
+     this.vehicleID = vehicleID;
+     this.brand = brand;
+     this.price = price;
+ }
+
+ void calculateInsurance() {
+     // default insurance = 5% of price
+     double insurance = price * 0.05;
+     System.out.println("Insurance: " + insurance);
+ }
+
+ void display() {
+     System.out.println("ID: " + vehicleID + ", Brand: " + brand + ", Price: " + price);
+ }
+ 
+ 
+ 
+ // main
+ 
+ public static void main(String[] args) {
+
+     Car c = new Car(1, "Toyota", 800000, "Petrol");
+     Bike b = new Bike(2, "Yamaha", 120000, 150);
+     Truck t = new Truck(3, "Tata", 1500000, 10);
+
+     // Display + Insurance
+     c.display();
+     c.calculateInsurance();
+     System.out.println();
+
+     b.display();
+     b.calculateInsurance();
+     System.out.println();
+
+     t.display();
+     t.calculateInsurance();
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+}
+
+//Car subclass
+class Car extends Vehicle {
+ String fuelType;
+
+ Car(int id, String brand, double price, String fuelType) {
+     super(id, brand, price);
+     this.fuelType = fuelType;
+ }
+
+ @Override
+ void calculateInsurance() {
+     // Car → 8%
+     double insurance = price * 0.08;
+     System.out.println("Car Insurance: " + insurance);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Fuel Type: " + fuelType);
+ }
+}
+
+//Bike subclass
+class Bike extends Vehicle {
+ int engineCapacity;
+
+ Bike(int id, String brand, double price, int engineCapacity) {
+     super(id, brand, price);
+     this.engineCapacity = engineCapacity;
+ }
+
+ @Override
+ void calculateInsurance() {
+     // Bike → 6%
+     double insurance = price * 0.06;
+     System.out.println("Bike Insurance: " + insurance);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Engine Capacity: " + engineCapacity + " cc");
+ }
+}
+
+//Truck subclass
+class Truck extends Vehicle {
+ double loadCapacity;
+
+ Truck(int id, String brand, double price, double loadCapacity) {
+     super(id, brand, price);
+     this.loadCapacity = loadCapacity;
+ }
+
+ @Override
+ void calculateInsurance() {
+     // Truck → 10%
+     double insurance = price * 0.10;
+     System.out.println("Truck Insurance: " + insurance);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Load Capacity: " + loadCapacity + " tons");
+ }
+}
+
+//Main class

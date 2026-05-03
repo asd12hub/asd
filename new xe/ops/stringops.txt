@@ -1,0 +1,177 @@
+package xenew.ops;
+
+import java.util.*;
+
+class StringOps {
+
+    String str;
+
+    StringOps(String s) {
+        str = s;
+    }
+
+    void countVC() {
+        int v = 0, c = 0;
+        for(int i = 0; i < str.length(); i++) {
+            char ch = Character.toLowerCase(str.charAt(i));
+            if(ch >= 'a' && ch <= 'z') {
+                if("aeiou".indexOf(ch) != -1) v++;
+                else c++;
+            }
+        }
+        System.out.println("Vowels = " + v);
+        System.out.println("Consonants = " + c);
+    }
+
+    void replaceSpace() {
+        System.out.println("After replace = " + str.replace(' ', '_'));
+    }
+
+    void changeCase() {
+        System.out.println("Upper = " + str.toUpperCase());
+        System.out.println("Lower = " + str.toLowerCase());
+    }
+
+    void reverseStr() {
+        StringBuilder sb = new StringBuilder(str);
+        System.out.println("Reverse = " + sb.reverse());
+    }
+
+    // D. Palindrome
+    void isPalindrome() {
+        String rev = new StringBuilder(str).reverse().toString();
+        System.out.println("Palindrome: " + str.equalsIgnoreCase(rev));
+    }
+
+    // E. Length without length()
+    void findLength() {
+        int count = 0;
+        for(char ch : str.toCharArray()) count++;
+        System.out.println("Length = " + count);
+    }
+
+    // Remove duplicates
+    void removeDuplicates() {
+        String result = "";
+        for(int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            if(result.indexOf(ch) == -1) result += ch;
+        }
+        System.out.println("No duplicates = " + result);
+    }
+
+    // Count digits, alphabets, special chars
+    void countTypes() {
+        int d=0,a=0,s=0;
+        for(char ch : str.toCharArray()) {
+            if(Character.isDigit(ch)) d++;
+            else if(Character.isLetter(ch)) a++;
+            else s++;
+        }
+        System.out.println("Digits=" + d + " Alphabets=" + a + " Special=" + s);
+    }
+
+    // Reverse words
+    void reverseWords() {
+        String[] words = str.split(" ");
+        for(int i = words.length-1; i >= 0; i--) {
+            System.out.print(words[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Only digits check
+    void onlyDigits() {
+        boolean flag = true;
+        for(char ch : str.toCharArray()) {
+            if(!Character.isDigit(ch)) {
+                flag = false;
+                break;
+            }
+        }
+        System.out.println("Only digits: " + flag);
+    }
+
+    // Longest word
+    void longestWord() {
+        String[] words = str.split(" ");
+        String max = "";
+        for(String w : words) {
+            if(w.length() > max.length()) max = w;
+        }
+        System.out.println("Longest word = " + max);
+    }
+
+    // Frequency of characters
+    void frequency() {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(char ch : str.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch,0)+1);
+        }
+        System.out.println("Frequency: " + map);
+    }
+
+    // First non-repeating character
+    void firstNonRepeat() {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(char ch : str.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch,0)+1);
+        }
+        for(char ch : str.toCharArray()) {
+            if(map.get(ch)==1) {
+                System.out.println("First non-repeating: " + ch);
+                return;
+            }
+        }
+        System.out.println("No non-repeating character");
+    }
+
+    // Capitalize first letter
+    void capitalizeWords() {
+        String[] words = str.split(" ");
+        String result = "";
+        for(String w : words) {
+            if(w.length() > 0)
+                result += Character.toUpperCase(w.charAt(0)) + w.substring(1) + " ";
+        }
+        System.out.println("Capitalized: " + result.trim());
+    }
+
+    // Anagram check (needs second string)
+    void isAnagram(String s2) {
+        char[] a = str.replace(" ","").toLowerCase().toCharArray();
+        char[] b = s2.replace(" ","").toLowerCase().toCharArray();
+        Arrays.sort(a);
+        Arrays.sort(b);
+        System.out.println("Anagram: " + Arrays.equals(a,b));
+    }
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter string:");
+        String s = sc.nextLine();
+
+        StringOps obj = new StringOps(s);
+
+        obj.countVC();
+        obj.replaceSpace();
+        obj.changeCase();
+        obj.reverseStr();
+        obj.isPalindrome();
+        obj.findLength();
+        obj.removeDuplicates();
+        obj.countTypes();
+        obj.reverseWords();
+        obj.onlyDigits();
+        obj.longestWord();
+        obj.frequency();
+        obj.firstNonRepeat();
+        obj.capitalizeWords();
+
+        // Anagram input
+        System.out.println("Enter another string for anagram:");
+        String s2 = sc.nextLine();
+        obj.isAnagram(s2);
+    }
+}

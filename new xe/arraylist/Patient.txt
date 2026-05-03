@@ -1,0 +1,126 @@
+/*
+Write a Java program to implement Hospital Patient System. Use an ArrayList to store patient objects with attributes: patientID, name, and age. And implement features such as Add patients 
+	Update age 
+	Remove patients 
+	Sort patients by age or name. 
+
+*/
+
+package arraylist;
+
+import java.util.*;
+
+//Patient class
+class Patient {
+ int patientID;
+ String name;
+ int age;
+
+ Patient(int id, String name, int age) {
+     this.patientID = id;
+     this.name = name;
+     this.age = age;
+ }
+
+ public String toString() {
+     return patientID + " | " + name + " | " + age;
+ }
+
+
+//Main class
+
+
+ static ArrayList<Patient> list = new ArrayList<>();
+ static Scanner sc = new Scanner(System.in);
+
+ // Add patient
+ static void addPatient() {
+     System.out.print("Enter ID: ");
+     int id = sc.nextInt();
+     sc.nextLine();
+
+     System.out.print("Enter Name: ");
+     String name = sc.nextLine();
+
+     System.out.print("Enter Age: ");
+     int age = sc.nextInt();
+
+     list.add(new Patient(id, name, age));
+     System.out.println("Patient Added");
+ }
+
+ // Update age
+ static void updatePatient() {
+     System.out.print("Enter Patient ID: ");
+     int id = sc.nextInt();
+
+     for(Patient p : list) {
+         if(p.patientID == id) {
+             System.out.print("Enter new age: ");
+             p.age = sc.nextInt();
+             System.out.println("Updated");
+             return;
+         }
+     }
+     System.out.println("Patient not found");
+ }
+
+ // Remove patient
+ static void removePatient() {
+     System.out.print("Enter Patient ID: ");
+     int id = sc.nextInt();
+
+     Iterator<Patient> it = list.iterator();
+     while(it.hasNext()) {
+         if(it.next().patientID == id) {
+             it.remove();
+             System.out.println("Removed");
+             return;
+         }
+     }
+     System.out.println("Patient not found");
+ }
+
+ // Display
+ static void display() {
+     if(list.isEmpty()) {
+         System.out.println("No patients");
+         return;
+     }
+     for(Patient p : list) {
+         System.out.println(p);
+     }
+ }
+
+ // Sort by age
+ static void sortByAge() {
+     Collections.sort(list, (a, b) -> a.age - b.age);
+     System.out.println("Sorted by Age");
+ }
+
+ // Sort by name
+ static void sortByName() {
+     Collections.sort(list, (a, b) -> a.name.compareToIgnoreCase(b.name));
+     System.out.println("Sorted by Name");
+ }
+
+ public static void main(String[] args) {
+
+     while(true) {
+         System.out.println("\n1.Add 2.Update 3.Remove 4.Display 5.SortAge 6.SortName 7.Exit");
+         System.out.print("Enter choice: ");
+         int ch = sc.nextInt();
+
+         switch(ch) {
+             case 1: addPatient(); break;
+             case 2: updatePatient(); break;
+             case 3: removePatient(); break;
+             case 4: display(); break;
+             case 5: sortByAge(); break;
+             case 6: sortByName(); break;
+             case 7: System.exit(0);
+             default: System.out.println("Invalid choice");
+         }
+     }
+ }
+}

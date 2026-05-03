@@ -1,0 +1,157 @@
+
+/*
+Build a product inventory system for a store using ArrayList.
+➢ Each product should have a name, ID, and price.
+➢ Implement features to add new products, update prices, and remove products.
+Sort products by price or name using a custom comparator
+
+
+
+*/
+
+
+package arraylist;
+
+import java.util.*;
+
+class Products {
+    private int id;
+    private String name;
+    private double price;
+
+    // Constructor
+    Products(int id, String name, double price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+    // Getters
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    // Setter (only for price)
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    // Display
+    public void display() {
+        System.out.println("ID: " + id + " | Name: " + name + " | Price: " + price);
+    }
+}
+
+public class InventorySystem {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Products> products = new ArrayList<>();
+
+        int choice;
+
+        do {
+            System.out.println("\n===== PRODUCT INVENTORY MENU =====");
+            System.out.println("1. Add Product");
+            System.out.println("2. Update Price");
+            System.out.println("3. Remove Product");
+            System.out.println("4. Display Products");
+            System.out.println("5. Sort by Price");
+            System.out.println("6. Sort by Name");
+            System.out.println("0. Exit");
+            System.out.print("Enter choice: ");
+
+            choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.print("Enter ID: ");
+                    int id = sc.nextInt();
+                    sc.nextLine(); // clear buffer
+
+                    System.out.print("Enter Name: ");
+                    String name = sc.nextLine();
+
+                    System.out.print("Enter Price: ");
+                    double price = sc.nextDouble();
+
+                    products.add(new Products(id, name, price));
+                    System.out.println("Product added!");
+                    break;
+
+                case 2:
+                    System.out.print("Enter Product ID to update: ");
+                    int updateId = sc.nextInt();
+                    boolean found = false;
+
+                    for (Products p : products) {
+                        if (p.getId() == updateId) {
+                            System.out.print("Enter new price: ");
+                            double newPrice = sc.nextDouble();
+                            p.setPrice(newPrice);
+                            System.out.println("Price updated!");
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if (!found) {
+                        System.out.println("Product not found!");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Enter Product ID to remove: ");
+                    int removeId = sc.nextInt();
+
+                    boolean removed = products.removeIf(p -> p.getId() == removeId);
+
+                    if (removed) {
+                        System.out.println("Product removed!");
+                    } else {
+                        System.out.println("Product not found!");
+                    }
+                    break;
+
+                case 4:
+                    if (products.isEmpty()) {
+                        System.out.println("No products available.");
+                    } else {
+                        System.out.println("\n--- Product List ---");
+                        for (Products p : products) {
+                            p.display();
+                        }
+                    }
+                    break;
+
+                case 5:
+                    products.sort((p1, p2) -> Double.compare(p1.getPrice(), p2.getPrice()));
+                    System.out.println("Sorted by Price!");
+                    break;
+
+                case 6:
+                    products.sort((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()));
+                    System.out.println("Sorted by Name!");
+                    break;
+
+                case 0:
+                    System.out.println("Exiting...");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+
+        } while (choice != 0);
+
+        sc.close();
+    }
+}

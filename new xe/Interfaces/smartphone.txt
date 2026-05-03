@@ -1,0 +1,56 @@
+package xenew.Interfaces;
+
+//Interface 1
+interface WiFiEnabled {
+ void connectWiFi();
+ void disconnectWiFi();
+}
+
+//Interface 2
+interface BluetoothEnabled {
+ void connectBluetooth();
+ void disconnectBluetooth();
+}
+
+//Class implementing both interfaces
+class SmartPhone implements WiFiEnabled, BluetoothEnabled {
+
+ public void connectWiFi() {
+     System.out.println("WiFi connected.");
+ }
+
+ public void disconnectWiFi() {
+     System.out.println("WiFi disconnected.");
+ }
+
+ public void connectBluetooth() {
+     System.out.println("Bluetooth connected.");
+ }
+
+ public void disconnectBluetooth() {
+     System.out.println("Bluetooth disconnected.");
+ }
+ 
+ 
+ 
+ public static void main(String[] args) {
+
+     SmartPhone phone = new SmartPhone();
+
+     // WiFi features
+     phone.connectWiFi();
+     phone.disconnectWiFi();
+
+     System.out.println();
+
+     // Bluetooth features
+     phone.connectBluetooth();
+     phone.disconnectBluetooth();
+ }
+ 
+ 
+ 
+ 
+}
+
+//Main class

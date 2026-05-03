@@ -1,0 +1,125 @@
+/*
+Implement a Java program for ATM withdrawal with proper validation and exception handling, which Accept user input for account number, PIN, and withdrawal amount and maintain a sample account with balance. Implement following Exceptions to Handle
+	Custom Exceptions 
+•	InsufficientBalanceException
+Thrown when withdrawal amount exceeds available balance. 
+•	InvalidPinException
+Thrown when entered PIN is incorrect. 
+	Built-in Exceptions
+•	NumberFormatException
+Handle when user enters non-numeric input (e.g., letters instead of amount). 
+•	NullPointerException
+ Handle when input values are null. 
+Validate: 
+•	PIN must be correct 
+•	Amount must be positive 
+•	Amount must not exceed balance or limit 
+
+
+
+*/
+
+
+
+
+/*package Exception;
+
+import java.util.Scanner;
+
+//-------- Custom Exceptions --------
+class InsufficientBalanceException extends Exception {
+ InsufficientBalanceException(String msg) {
+     super(msg);
+ }
+}
+
+class InvalidPinException extends Exception {
+ InvalidPinException(String msg) {
+     super(msg);
+ }
+}
+
+//-------- ATM Class --------
+class Atmp {
+
+ private int accountNumber = 123456;
+ private int correctPIN = 1111;
+ private double balance = 8000;
+ private double limit = 5000;
+
+ void withdraw(String accInput, String pinInput, String amtInput)
+         throws InvalidPinException, InsufficientBalanceException {
+
+     if(accInput == null || pinInput == null || amtInput == null) {
+         throw new NullPointerException("Input cannot be null");
+     }
+
+     int acc = Integer.parseInt(accInput);
+     int pin = Integer.parseInt(pinInput);
+     double amount = Double.parseDouble(amtInput);
+
+     if(acc != accountNumber) {
+         System.out.println("Invalid account number");
+         return;
+     }
+
+     if(pin != correctPIN) {
+         throw new InvalidPinException("Incorrect PIN");
+     }
+
+     if(amount <= 0) {
+         System.out.println("Amount must be positive");
+         return;
+     }
+
+     if(amount > limit) {
+         System.out.println("Exceeds withdrawal limit");
+         return;
+     }
+
+     if(amount > balance) {
+         throw new InsufficientBalanceException("Insufficient balance");
+     }
+
+     balance -= amount;
+     System.out.println("Withdrawal successful: " + amount);
+     System.out.println("Remaining Balance: " + balance);
+ }
+
+
+//-------- Main --------
+
+ public static void main(String[] args) {
+
+     Scanner sc = new Scanner(System.in);
+     Atmp atm = new Atmp();   // updated
+
+     try {
+         System.out.print("Enter Account Number: ");
+         String acc = sc.nextLine();
+
+         System.out.print("Enter PIN: ");
+         String pin = sc.nextLine();
+
+         System.out.print("Enter Amount: ");
+         String amt = sc.nextLine();
+
+         atm.withdraw(acc, pin, amt);
+
+     } catch(NumberFormatException e) {
+         System.out.println("Error: Enter numeric values only");
+
+     } catch(NullPointerException e) {
+         System.out.println("Error: Input cannot be null");
+
+     } catch(InvalidPinException e) {
+         System.out.println("Error: " + e.getMessage());
+
+     } catch(InsufficientBalanceException e) {
+         System.out.println("Error: " + e.getMessage());
+
+     } catch(Exception e) {
+         System.out.println("Unexpected Error");
+     }
+ }
+} */

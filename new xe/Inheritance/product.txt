@@ -1,0 +1,115 @@
+package xenew.Inheritance;
+
+//Base class
+class Product {
+ int productID;
+ String name;
+ double price;
+
+ Product(int productID, String name, double price) {
+     this.productID = productID;
+     this.name = name;
+     this.price = price;
+ }
+
+ void applyDiscount() {
+     // default discount (5%)
+     price = price - (price * 0.05);
+ }
+
+ void display() {
+     System.out.println("ID: " + productID + ", Name: " + name + ", Price: " + price);
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+ public static void main(String[] args) {
+
+     Electronics e = new Electronics(101, "Laptop", 50000, 2);
+     Clothing c = new Clothing(102, "T-Shirt", 1000, "M");
+     Groceries g = new Groceries(103, "Milk", 60, "10-05-2026");
+
+     // Apply discounts
+     e.applyDiscount();
+     c.applyDiscount();
+     g.applyDiscount();
+
+     // Display details
+     e.display();
+     c.display();
+     g.display();
+ }
+ 
+ 
+ 
+ 
+ 
+ 
+}
+
+//Subclass 1
+class Electronics extends Product {
+ int warrantyPeriod;
+
+ Electronics(int id, String name, double price, int warrantyPeriod) {
+     super(id, name, price);
+     this.warrantyPeriod = warrantyPeriod;
+ }
+
+ @Override
+ void applyDiscount() {
+     // Electronics → 10% discount
+     price = price - (price * 0.10);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Warranty: " + warrantyPeriod + " years\n");
+ }
+}
+
+//Subclass 2
+class Clothing extends Product {
+ String size;
+
+ Clothing(int id, String name, double price, String size) {
+     super(id, name, price);
+     this.size = size;
+ }
+
+ @Override
+ void applyDiscount() {
+     // Clothing → 20% discount
+     price = price - (price * 0.20);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Size: " + size + "\n");
+ }
+}
+
+//Subclass 3
+class Groceries extends Product {
+ String expiryDate;
+
+ Groceries(int id, String name, double price, String expiryDate) {
+     super(id, name, price);
+     this.expiryDate = expiryDate;
+ }
+
+ @Override
+ void applyDiscount() {
+     // Groceries → 5% discount
+     price = price - (price * 0.05);
+ }
+
+ void display() {
+     super.display();
+     System.out.println("Expiry Date: " + expiryDate + "\n");
+ }
+}
+

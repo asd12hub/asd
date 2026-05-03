@@ -1,0 +1,96 @@
+package hashmap;
+
+import java.util.*;
+
+public class Main {
+
+    static HashMap<Integer, String> map = new HashMap<>();
+    static Scanner sc = new Scanner(System.in);
+
+    // Add student
+    static void addStudent() {
+        System.out.print("Enter ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        map.put(id, name);
+        System.out.println("Student Added");
+    }
+
+    // Update student
+    static void updateStudent() {
+        System.out.print("Enter ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        if(map.containsKey(id)) {
+            System.out.print("Enter new name: ");
+            map.put(id, sc.nextLine());
+            System.out.println("Updated");
+        } else {
+            System.out.println("Student not found");
+        }
+    }
+
+    // Delete student
+    static void deleteStudent() {
+        System.out.print("Enter ID: ");
+        int id = sc.nextInt();
+
+        if(map.remove(id) != null) {
+            System.out.println("Deleted");
+        } else {
+            System.out.println("Student not found");
+        }
+    }
+
+    // Search student
+    static void searchStudent() {
+        System.out.print("Enter ID: ");
+        int id = sc.nextInt();
+
+        if(map.containsKey(id)) {
+            System.out.println("Name: " + map.get(id));
+        } else {
+            System.out.println("Student not found");
+        }
+    }
+
+    // Display sorted by name
+    static void displaySorted() {
+        if(map.isEmpty()) {
+            System.out.println("No records");
+            return;
+        }
+
+        List<Map.Entry<Integer, String>> list = new ArrayList<>(map.entrySet());
+
+        Collections.sort(list, (a, b) -> a.getValue().compareToIgnoreCase(b.getValue()));
+
+        for(Map.Entry<Integer, String> e : list) {
+            System.out.println(e.getKey() + " | " + e.getValue());
+        }
+    }
+
+    public static void main(String[] args) {
+
+        while(true) {
+            System.out.println("\n1.Add 2.Update 3.Delete 4.Search 5.DisplaySorted 6.Exit");
+            System.out.print("Enter choice: ");
+            int ch = sc.nextInt();
+
+            switch(ch) {
+                case 1: addStudent(); break;
+                case 2: updateStudent(); break;
+                case 3: deleteStudent(); break;
+                case 4: searchStudent(); break;
+                case 5: displaySorted(); break;
+                case 6: System.exit(0);
+                default: System.out.println("Invalid choice");
+            }
+        }
+    }
+}

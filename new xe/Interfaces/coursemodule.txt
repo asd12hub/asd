@@ -1,0 +1,58 @@
+package xenew.Interfaces;
+
+//Interface 1
+interface VideoContent {
+ void playVideo();
+ void pauseVideo();
+}
+
+//Interface 2
+interface QuizContent {
+ void startQuiz();
+ void submitQuiz();
+}
+
+//Class implementing both interfaces
+class CourseModule implements VideoContent, QuizContent {
+
+ // Video features
+ public void playVideo() {
+     System.out.println("Video is playing...");
+ }
+
+ public void pauseVideo() {
+     System.out.println("Video paused.");
+ }
+
+ // Quiz features
+ public void startQuiz() {
+     System.out.println("Quiz started.");
+ }
+
+ public void submitQuiz() {
+     System.out.println("Quiz submitted.");
+ }
+ 
+ 
+ 
+ public static void main(String[] args) {
+
+     CourseModule course = new CourseModule();
+
+     // Video functionality
+     course.playVideo();
+     course.pauseVideo();
+
+     System.out.println();
+
+     // Quiz functionality
+     course.startQuiz();
+     course.submitQuiz();
+ }
+ 
+ 
+ 
+ 
+ 
+}
+

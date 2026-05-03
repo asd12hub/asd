@@ -1,0 +1,147 @@
+/*
+Write a Java program to implement a Doctor Management System using ArrayList to store doctor objects. Each doctor should have the following attributes: doctorID, name, and specialization.
+Design a menu-driven application to perform the following operations:
+•	Add new doctor records 
+•	Update the specialization of a doctor using doctorID 
+•	Remove a doctor record using doctorID 
+•	Search and display doctor details by name 
+•	Sort and display all doctors by name or specialization
+
+*/
+
+package arraylist;
+
+import java.util.*;
+
+//Doctor class
+class Doctor {
+ int doctorID;
+ String name;
+ String specialization;
+
+ Doctor(int id, String name, String specialization) {
+     this.doctorID = id;
+     this.name = name;
+     this.specialization = specialization;
+ }
+
+ public String toString() {
+     return doctorID + " | " + name + " | " + specialization;
+ }
+
+
+ static ArrayList<Doctor> list = new ArrayList<>();
+ static Scanner sc = new Scanner(System.in);
+
+ // Add doctor
+ static void addDoctor() {
+     System.out.print("Enter ID: ");
+     int id = sc.nextInt();
+     sc.nextLine();
+
+     System.out.print("Enter Name: ");
+     String name = sc.nextLine();
+
+     System.out.print("Enter Specialization: ");
+     String spec = sc.nextLine();
+
+     list.add(new Doctor(id, name, spec));
+     System.out.println("Doctor Added");
+ }
+
+ // Update specialization
+ static void updateDoctor() {
+     System.out.print("Enter Doctor ID: ");
+     int id = sc.nextInt();
+     sc.nextLine();
+
+     for(Doctor d : list) {
+         if(d.doctorID == id) {
+             System.out.print("Enter new specialization: ");
+             d.specialization = sc.nextLine();
+             System.out.println("Updated");
+             return;
+         }
+     }
+     System.out.println("Doctor not found");
+ }
+
+ // Remove doctor
+ static void removeDoctor() {
+     System.out.print("Enter Doctor ID: ");
+     int id = sc.nextInt();
+
+     Iterator<Doctor> it = list.iterator();
+     while(it.hasNext()) {
+         if(it.next().doctorID == id) {
+             it.remove();
+             System.out.println("Removed");
+             return;
+         }
+     }
+     System.out.println("Doctor not found");
+ }
+
+ // Search by name
+ static void searchDoctor() {
+     sc.nextLine();
+     System.out.print("Enter name to search: ");
+     String name = sc.nextLine();
+
+     boolean found = false;
+     for(Doctor d : list) {
+         if(d.name.equalsIgnoreCase(name)) {
+             System.out.println(d);
+             found = true;
+         }
+     }
+
+     if(!found) {
+         System.out.println("Doctor not found");
+     }
+ }
+
+ // Display all
+ static void display() {
+     if(list.isEmpty()) {
+         System.out.println("No doctors available");
+         return;
+     }
+     for(Doctor d : list) {
+         System.out.println(d);
+     }
+ }
+
+ // Sort by name
+ static void sortByName() {
+     Collections.sort(list, (a, b) -> a.name.compareToIgnoreCase(b.name));
+     System.out.println("Sorted by Name");
+ }
+
+ // Sort by specialization
+ static void sortBySpec() {
+     Collections.sort(list, (a, b) -> a.specialization.compareToIgnoreCase(b.specialization));
+     System.out.println("Sorted by Specialization");
+ }
+
+ public static void main(String[] args) {
+
+     while(true) {
+         System.out.println("\n1.Add 2.Update 3.Remove 4.Search 5.Display 6.SortName 7.SortSpec 8.Exit");
+         System.out.print("Enter choice: ");
+         int ch = sc.nextInt();
+
+         switch(ch) {
+             case 1: addDoctor(); break;
+             case 2: updateDoctor(); break;
+             case 3: removeDoctor(); break;
+             case 4: searchDoctor(); break;
+             case 5: display(); break;
+             case 6: sortByName(); break;
+             case 7: sortBySpec(); break;
+             case 8: System.exit(0);
+             default: System.out.println("Invalid choice");
+         }
+     }
+ }
+}

@@ -1,0 +1,128 @@
+/*
+Write a Java program to implement Book Management System. Use an ArrayList to store book objects with attributes: bookID, title, and price. 
+	Implement features: 
+	Add books 
+	Update book price 
+	Remove books 
+	Sort books by price or title using a comparator. 
+
+*/
+
+package arraylist;
+
+import java.util.*;
+
+//Book class
+class Book {
+ int bookID;
+ String title;
+ double price;
+
+ Book(int id, String title, double price) {
+     this.bookID = id;
+     this.title = title;
+     this.price = price;
+ }
+
+ public String toString() {
+     return bookID + " | " + title + " | " + price;
+ }
+
+
+//Main class
+
+
+ static ArrayList<Book> list = new ArrayList<>();
+ static Scanner sc = new Scanner(System.in);
+
+ // Add book
+ static void addBook() {
+     System.out.print("Enter ID: ");
+     int id = sc.nextInt();
+     sc.nextLine();
+
+     System.out.print("Enter Title: ");
+     String title = sc.nextLine();
+
+     System.out.print("Enter Price: ");
+     double price = sc.nextDouble();
+
+     list.add(new Book(id, title, price));
+     System.out.println("Book Added");
+ }
+
+ // Update price
+ static void updateBook() {
+     System.out.print("Enter Book ID: ");
+     int id = sc.nextInt();
+
+     for(Book b : list) {
+         if(b.bookID == id) {
+             System.out.print("Enter new price: ");
+             b.price = sc.nextDouble();
+             System.out.println("Updated");
+             return;
+         }
+     }
+     System.out.println("Book not found");
+ }
+
+ // Remove book
+ static void removeBook() {
+     System.out.print("Enter Book ID: ");
+     int id = sc.nextInt();
+
+     Iterator<Book> it = list.iterator();
+     while(it.hasNext()) {
+         if(it.next().bookID == id) {
+             it.remove();
+             System.out.println("Removed");
+             return;
+         }
+     }
+     System.out.println("Book not found");
+ }
+
+ // Display
+ static void display() {
+     if(list.isEmpty()) {
+         System.out.println("No books");
+         return;
+     }
+     for(Book b : list) {
+         System.out.println(b);
+     }
+ }
+
+ // Sort by price
+ static void sortByPrice() {
+     Collections.sort(list, (a, b) -> Double.compare(a.price, b.price));
+     System.out.println("Sorted by Price");
+ }
+
+ // Sort by title
+ static void sortByTitle() {
+     Collections.sort(list, (a, b) -> a.title.compareToIgnoreCase(b.title));
+     System.out.println("Sorted by Title");
+ }
+
+ public static void main(String[] args) {
+
+     while(true) {
+         System.out.println("\n1.Add 2.Update 3.Remove 4.Display 5.SortPrice 6.SortTitle 7.Exit");
+         System.out.print("Enter choice: ");
+         int ch = sc.nextInt();
+
+         switch(ch) {
+             case 1: addBook(); break;
+             case 2: updateBook(); break;
+             case 3: removeBook(); break;
+             case 4: display(); break;
+             case 5: sortByPrice(); break;
+             case 6: sortByTitle(); break;
+             case 7: System.exit(0);
+             default: System.out.println("Invalid choice");
+         }
+     }
+ }
+}

@@ -1,0 +1,94 @@
+package Sort;
+
+import java.util.*;
+
+class SortArrays {
+
+    SortArrays() {
+        System.out.println("Sorting Program");
+    }
+
+    void sortInt(int arr[], int choice) {
+        for(int i = 0; i < arr.length - 1; i++) {
+            for(int j = i + 1; j < arr.length; j++) {
+                if(choice == 1) {
+                    if(arr[i] > arr[j]) {
+                        int temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                } else {
+                    if(arr[i] < arr[j]) {
+                        int temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+        }
+
+        System.out.println(Arrays.toString(arr));
+    }
+
+    void sortString(String arr[], int choice) {
+        for(int i = 0; i < arr.length - 1; i++) {
+            for(int j = i + 1; j < arr.length; j++) {
+                if(choice == 1) {
+                    if(arr[i].compareTo(arr[j]) > 0) {
+                        String t = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = t;
+                    }
+                } else {
+                    if(arr[i].compareTo(arr[j]) < 0) {
+                        String t = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = t;
+                    }
+                }
+            }
+        }
+
+        System.out.println(Arrays.toString(arr));
+    }
+
+    
+    
+    
+    
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        SortArrays s = new SortArrays();
+
+        int n;
+        System.out.println("Enter size:");
+        n = sc.nextInt();
+
+        int a[] = new int[n];
+        System.out.println("Enter integers:");
+        for(int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+
+        String b[] = new String[n];
+        System.out.println("Enter strings:");
+        for(int i = 0; i < n; i++) {
+            b[i] = sc.next();
+        }
+
+        int ch;
+        System.out.println("1 Asc 2 Desc");
+        ch = sc.nextInt();
+
+        System.out.println("Sorted Integers:");
+        s.sortInt(a, ch);
+
+        System.out.println("Sorted Strings:");
+        s.sortString(b, ch);
+    }
+    
+    
+    
+    
+    
+}
