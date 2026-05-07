@@ -1,0 +1,154 @@
+import java.util.*;
+
+// Student class
+class Student {
+    String name;
+    double attendancePercentage;
+
+    // Constructor
+    Student(String name, double attendancePercentage) {
+        this.name = name;
+        this.attendancePercentage = attendancePercentage;
+    }
+
+    // Display method
+    void display(int rollNumber) {
+        System.out.println("Roll No: " + rollNumber +
+                ", Name: " + name +
+                ", Attendance: " + attendancePercentage + "%");
+    }
+}
+
+public class ClassroomAttendanceSystem {
+
+    static HashMap<Integer, Student> map = new HashMap<>();
+    static Scanner sc = new Scanner(System.in);
+
+    // Add student
+    static void addStudent() {
+        System.out.print("Enter Roll Number: ");
+        int roll = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Attendance Percentage: ");
+        double attendance = sc.nextDouble();
+
+        map.put(roll, new Student(name, attendance));
+
+        System.out.println("Student Added Successfully.\n");
+    }
+
+    // Update attendance
+    static void updateAttendance() {
+        System.out.print("Enter Roll Number: ");
+        int roll = sc.nextInt();
+
+        if (map.containsKey(roll)) {
+            System.out.print("Enter New Attendance Percentage: ");
+            double attendance = sc.nextDouble();
+
+            map.get(roll).attendancePercentage = attendance;
+
+            System.out.println("Attendance Updated Successfully.\n");
+        } else {
+            System.out.println("Student Not Found.\n");
+        }
+    }
+
+    // Remove student
+    static void removeStudent() {
+        System.out.print("Enter Roll Number: ");
+        int roll = sc.nextInt();
+
+        if (map.remove(roll) != null) {
+            System.out.println("Student Removed Successfully.\n");
+        } else {
+            System.out.println("Student Not Found.\n");
+        }
+    }
+
+    // Search student
+    static void searchStudent() {
+        System.out.print("Enter Roll Number: ");
+        int roll = sc.nextInt();
+
+        if (map.containsKey(roll)) {
+            map.get(roll).display(roll);
+        } else {
+            System.out.println("Student Not Found.");
+        }
+
+        System.out.println();
+    }
+
+    // Display all students sorted by attendance
+    static void displaySortedStudents() {
+
+        List<Map.Entry<Integer, Student>> list =
+                new ArrayList<>(map.entrySet());
+
+        // Sorting
+        Collections.sort(list, (a, b) ->
+                Double.compare(b.getValue().attendancePercentage,
+                        a.getValue().attendancePercentage));
+
+        System.out.println("\nStudents Sorted By Attendance:\n");
+
+        for (Map.Entry<Integer, Student> entry : list) {
+            entry.getValue().display(entry.getKey());
+        }
+
+        System.out.println();
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("===== Classroom Attendance System =====");
+            System.out.println("1. Add Student");
+            System.out.println("2. Update Attendance");
+            System.out.println("3. Remove Student");
+            System.out.println("4. Search Student");
+            System.out.println("5. Display Sorted Students");
+            System.out.println("6. Exit");
+
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addStudent();
+                    break;
+
+                case 2:
+                    updateAttendance();
+                    break;
+
+                case 3:
+                    removeStudent();
+                    break;
+
+                case 4:
+                    searchStudent();
+                    break;
+
+                case 5:
+                    displaySortedStudents();
+                    break;
+
+                case 6:
+                    System.out.println("Program Ended.");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice.\n");
+            }
+        }
+    }
+}

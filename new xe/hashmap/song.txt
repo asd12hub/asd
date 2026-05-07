@@ -1,0 +1,140 @@
+import java.util.*;
+
+public class MusicPlaylistManager {
+
+    static HashMap<Integer, String> map = new HashMap<>();
+    static Scanner sc = new Scanner(System.in);
+
+    // Add new song
+    static void addSong() {
+
+        System.out.print("Enter Song ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Song Name: ");
+        String name = sc.nextLine();
+
+        map.put(id, name);
+
+        System.out.println("Song Added Successfully.\n");
+    }
+
+    // Update song details
+    static void updateSong() {
+
+        System.out.print("Enter Song ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        if (map.containsKey(id)) {
+
+            System.out.print("Enter New Song Name: ");
+            String name = sc.nextLine();
+
+            map.put(id, name);
+
+            System.out.println("Song Updated Successfully.\n");
+
+        } else {
+            System.out.println("Song Not Found.\n");
+        }
+    }
+
+    // Delete song
+    static void deleteSong() {
+
+        System.out.print("Enter Song ID: ");
+        int id = sc.nextInt();
+
+        if (map.remove(id) != null) {
+            System.out.println("Song Deleted Successfully.\n");
+        } else {
+            System.out.println("Song Not Found.\n");
+        }
+    }
+
+    // Search song
+    static void searchSong() {
+
+        System.out.print("Enter Song ID: ");
+        int id = sc.nextInt();
+
+        if (map.containsKey(id)) {
+
+            System.out.println("Song Found:");
+            System.out.println("Song ID: " + id);
+            System.out.println("Song Name: " + map.get(id));
+
+        } else {
+            System.out.println("Song Not Found.");
+        }
+
+        System.out.println();
+    }
+
+    // Display songs in alphabetical order
+    static void displaySongs() {
+
+        List<String> list = new ArrayList<>(map.values());
+
+        // Sort alphabetically
+        Collections.sort(list);
+
+        System.out.println("\nSongs In Alphabetical Order:\n");
+
+        for (String song : list) {
+            System.out.println(song);
+        }
+
+        System.out.println();
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("===== Music Playlist Manager =====");
+            System.out.println("1. Add New Song");
+            System.out.println("2. Update Song");
+            System.out.println("3. Delete Song");
+            System.out.println("4. Search Song");
+            System.out.println("5. Display Songs");
+            System.out.println("6. Exit");
+
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addSong();
+                    break;
+
+                case 2:
+                    updateSong();
+                    break;
+
+                case 3:
+                    deleteSong();
+                    break;
+
+                case 4:
+                    searchSong();
+                    break;
+
+                case 5:
+                    displaySongs();
+                    break;
+
+                case 6:
+                    System.out.println("Program Ended.");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice.\n");
+            }
+        }
+    }
+}

@@ -1,0 +1,160 @@
+import java.util.*;
+
+// Order class
+class Order {
+    String customerName;
+    double totalAmount;
+
+    // Constructor
+    Order(String customerName, double totalAmount) {
+        this.customerName = customerName;
+        this.totalAmount = totalAmount;
+    }
+
+    // Display method
+    void display(int orderID) {
+        System.out.println("Order ID: " + orderID +
+                ", Customer Name: " + customerName +
+                ", Total Amount: ₹" + totalAmount);
+    }
+}
+
+public class RestaurantOrderSystem {
+
+    static HashMap<Integer, Order> map = new HashMap<>();
+    static Scanner sc = new Scanner(System.in);
+
+    // Add new order
+    static void addOrder() {
+
+        System.out.print("Enter Order ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Customer Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Total Amount: ");
+        double amount = sc.nextDouble();
+
+        map.put(id, new Order(name, amount));
+
+        System.out.println("Order Added Successfully.\n");
+    }
+
+    // Update order amount
+    static void updateOrder() {
+
+        System.out.print("Enter Order ID: ");
+        int id = sc.nextInt();
+
+        if (map.containsKey(id)) {
+
+            System.out.print("Enter New Amount: ");
+            double amount = sc.nextDouble();
+
+            map.get(id).totalAmount = amount;
+
+            System.out.println("Order Updated Successfully.\n");
+
+        } else {
+            System.out.println("Order Not Found.\n");
+        }
+    }
+
+    // Cancel order
+    static void cancelOrder() {
+
+        System.out.print("Enter Order ID: ");
+        int id = sc.nextInt();
+
+        if (map.remove(id) != null) {
+            System.out.println("Order Cancelled Successfully.\n");
+        } else {
+            System.out.println("Order Not Found.\n");
+        }
+    }
+
+    // Search order
+    static void searchOrder() {
+
+        System.out.print("Enter Order ID: ");
+        int id = sc.nextInt();
+
+        if (map.containsKey(id)) {
+            map.get(id).display(id);
+        } else {
+            System.out.println("Order Not Found.");
+        }
+
+        System.out.println();
+    }
+
+    // Display all orders sorted by amount
+    static void displaySortedOrders() {
+
+        List<Map.Entry<Integer, Order>> list =
+                new ArrayList<>(map.entrySet());
+
+        // Sorting by total amount
+        Collections.sort(list, (a, b) ->
+                Double.compare(b.getValue().totalAmount,
+                        a.getValue().totalAmount));
+
+        System.out.println("\nOrders Sorted By Amount:\n");
+
+        for (Map.Entry<Integer, Order> entry : list) {
+            entry.getValue().display(entry.getKey());
+        }
+
+        System.out.println();
+    }
+
+    // Main method
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("===== Restaurant Order System =====");
+            System.out.println("1. Add New Order");
+            System.out.println("2. Update Order Amount");
+            System.out.println("3. Cancel Order");
+            System.out.println("4. Search Order");
+            System.out.println("5. Display Sorted Orders");
+            System.out.println("6. Exit");
+
+            System.out.print("Enter Choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addOrder();
+                    break;
+
+                case 2:
+                    updateOrder();
+                    break;
+
+                case 3:
+                    cancelOrder();
+                    break;
+
+                case 4:
+                    searchOrder();
+                    break;
+
+                case 5:
+                    displaySortedOrders();
+                    break;
+
+                case 6:
+                    System.out.println("Program Ended.");
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid Choice.\n");
+            }
+        }
+    }
+}
